@@ -32,7 +32,7 @@ function ApplyLoanSection() {
         try {
             // Create application if not exists
             if (!applicationId) {
-                const res = await fetch("http://localhost:5000/loans", {
+                const res = await fetch("https://loan-swift-backend.onrender.com/loans", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ phone: form.phone }) // minimal fields
@@ -44,7 +44,7 @@ function ApplyLoanSection() {
             }
 
             // Send OTP
-            const resOtp = await fetch("http://localhost:5000/loans/send-otp", {
+            const resOtp = await fetch("https://loan-swift-backend.onrender.com/loans/send-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone: form.phone })
@@ -68,7 +68,7 @@ function ApplyLoanSection() {
         if (form.otp.length !== 6) return alert("Enter 6-digit OTP");
 
         try {
-            const res = await fetch("http://localhost:5000/loans/verify-otp", {
+            const res = await fetch("https://loan-swift-backend.onrender.com/loans/verify-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone: form.phone, otp: form.otp })
@@ -91,7 +91,7 @@ function ApplyLoanSection() {
         if (!applicationId) return alert("Application ID not found");
 
         try {
-            const res = await fetch(`http://localhost:5000/loans/${applicationId}`, {
+            const res = await fetch(`https://loan-swift-backend.onrender.com/loans/${applicationId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form)
