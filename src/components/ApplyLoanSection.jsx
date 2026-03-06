@@ -24,26 +24,10 @@ function ApplyLoanSection() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    // 1️⃣ Send OTP using backend
-    // 1️⃣ Create application + send OTP
     const sendOtp = async () => {
         if (!form.phone || form.phone.length !== 10) return alert("Enter valid phone");
 
         try {
-            // Create application if not exists
-            if (!applicationId) {
-                const res = await fetch("https://loan-swift-backend.onrender.com/loans", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ phone: form.phone }) // minimal fields
-                });
-                const data = await res.json();
-                if (!data.success) return alert("Failed to create application");
-
-                setApplicationId(data.data._id); // save app id
-            }
-
-            // Send OTP
             const resOtp = await fetch("https://loan-swift-backend.onrender.com/loans/send-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -52,6 +36,7 @@ function ApplyLoanSection() {
 
             const otpData = await resOtp.json();
             if (otpData.success) {
+                setApplicationId(otpData.data._id); // get application id from backend
                 setOtpSent(true);
                 alert("OTP Sent Successfully!");
             } else {
