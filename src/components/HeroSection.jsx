@@ -100,11 +100,11 @@ function HeroSection() {
 
         .scroll-down{
           position:absolute;
-          bottom:100px;
+          bottom:80px;
           left:50%;
           transform:translateX(-50%);
-          width:55px;
-          height:55px;
+          width:50px;
+          height:50px;
           border-radius:50%;
           border:2px solid white;
           display:flex;
