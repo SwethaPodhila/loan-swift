@@ -1,7 +1,22 @@
-import React from "react";
-import heroBanner from "../assests/hero-banner.jpg";
+import React, { useState, useEffect } from "react";
+
+import hero1 from "../assests/hero-banner.jpg";
+import hero2 from "../assests/hero-banner2.jpg";
+import hero3 from "../assests/hero-banner3.jpg";
 
 function HeroSection() {
+
+  const images = [hero1, hero2, hero3];
+  const [current, setCurrent] = useState(0);
+
+  // Auto image change
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollNext = () => {
     document.getElementById("loans").scrollIntoView({
@@ -13,13 +28,13 @@ function HeroSection() {
     <>
       <section
         id="home"
-        className="hero-section d-flex align-items-center justify-content-center text-center"
-        style={{ backgroundImage: `url(${heroBanner})` }}
+        className="hero-section"
+        style={{ backgroundImage: `url(${images[current]})` }}
       >
 
         <div className="hero-overlay"></div>
 
-        <div className="container hero-content">
+        <div className="container hero-content text-center">
 
           <h1>
             Get Instant Loans with <span>Low Interest</span>
@@ -30,6 +45,7 @@ function HeroSection() {
           </p>
 
           <div className="hero-buttons">
+
             <a href="#apply" className="btn btn-warning btn-lg">
               Apply Now
             </a>
@@ -37,11 +53,12 @@ function HeroSection() {
             <a href="#eligibility" className="btn btn-outline-light btn-lg">
               Check Eligibility
             </a>
+
           </div>
 
         </div>
 
-        {/* Round Scroll Arrow */}
+        {/* Scroll Arrow */}
         <div className="scroll-down" onClick={scrollNext}>
           ↓
         </div>
@@ -57,6 +74,10 @@ function HeroSection() {
           background-position:center;
           position:relative;
           color:white;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          transition:background-image 1s ease-in-out;
         }
 
         .hero-overlay{
@@ -96,7 +117,12 @@ function HeroSection() {
           flex-wrap:wrap;
         }
 
-        /* ROUND SCROLL BUTTON */
+        .hero-buttons .btn{
+          padding:12px 28px;
+          font-weight:600;
+        }
+
+        /* Scroll Button */
 
         .scroll-down{
           position:absolute;
