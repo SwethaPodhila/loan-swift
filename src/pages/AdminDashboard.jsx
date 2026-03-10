@@ -18,7 +18,7 @@ function AdminDashboard() {
 
     useEffect(() => {
 
-        fetch("http://localhost:5000/loans/users")
+        fetch("https://loan-swift-backend.onrender.com/loans/users")
             .then((res) => res.json())
             .then((data) => {
 
@@ -150,6 +150,9 @@ function AdminDashboard() {
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Income</th>
+                                    <th>Loan Type</th>
+                                    <th>Address</th>
                                 </tr>
 
                             </thead>

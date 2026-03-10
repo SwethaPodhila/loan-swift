@@ -22,7 +22,7 @@ function AdminLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await fetch("http://localhost:5000/auth/admin/login", {
+        const res = await fetch("https://loan-swift-backend.onrender.com/auth/admin/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
