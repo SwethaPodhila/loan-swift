@@ -51,16 +51,6 @@ function Navbar() {
                 </a>
               </li>
 
-              <li className="nav-item ms-lg-3 mt-3 mt-lg-0">
-                <a
-                  href="/admin/login"
-                  className="btn btn-warning fw-semibold px-4"
-                  onClick={() => setOpen(false)}
-                >
-                  Admin Signup
-                </a>
-              </li>
-
             </ul>
           </div>
 
