@@ -165,6 +165,9 @@ function AdminDashboard() {
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.phone}</td>
+                                        <td>${user.income}</td>
+                                        <td>{user.loanType}</td>
+                                        <td>{user.address}</td>
                                     </tr>
                                 ))}
 
