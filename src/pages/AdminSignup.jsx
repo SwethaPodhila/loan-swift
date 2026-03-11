@@ -61,7 +61,8 @@ function AdminSignup() {
                 <div className="card shadow" style={{
                     width: "420px",
                     padding: "30px",
-                    borderRadius: "12px"
+                    borderRadius: "12px",
+                    marginTop: "50px"
                 }}>
 
                     <h2 style={{

@@ -1,9 +1,25 @@
 import React from "react";
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const links = ["Home", "Loans", "Eligibility", "Calculator", "Contact"];
+
+  const handleScroll = (id) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100); // small delay to wait for Home page render
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -31,13 +47,16 @@ function Footer() {
               <h5 className="fw-bold mb-3">Quick Links</h5>
 
               <ul className="list-unstyled footer-links">
-
                 {links.map((link, index) => (
                   <li key={index}>
-                    <a href={`#${link.toLowerCase()}`}>{link}</a>
+                    <button
+                      className="btn btn-link p-0 footer-link-btn"
+                      onClick={() => handleScroll(link.toLowerCase())}
+                    >
+                      {link}
+                    </button>
                   </li>
                 ))}
-
               </ul>
             </div>
 
@@ -146,7 +165,19 @@ function Footer() {
           font-size:14px;
           color:#aaa;
         }
+.footer-link-btn {
+  text-decoration: none;
+  color: #ddd;
+  font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
 
+.footer-link-btn:hover {
+  color: #ffc107;
+}
         `}
       </style>
     </>

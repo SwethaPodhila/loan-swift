@@ -32,7 +32,7 @@ function AdminLogin() {
 
         const data = await res.json();
 
-        alert(data.message);
+      //  alert(data.message);
 
         // ✅ login success
         if (res.ok) {

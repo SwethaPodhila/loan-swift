@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = ["Home", "Loans", "Eligibility", "Calculator", "Contact"];
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
+  const handleScroll = (id) => {
+    setOpen(false); // close mobile menu
+
+    if (location.pathname !== "/") {
+      navigate("/");
+
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      // Already on Home page
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -31,24 +50,22 @@ function Navbar() {
 
               {navItems.map((item) => (
                 <li className="nav-item" key={item}>
-                  <a
-                    className="nav-link custom-link"
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => setOpen(false)}
+                  <button
+                    className="nav-link custom-link btn btn-link"
+                    onClick={() => handleScroll(item.toLowerCase())}
                   >
                     {item}
-                  </a>
+                  </button>
                 </li>
               ))}
 
               <li className="nav-item ms-lg-3 mt-3 mt-lg-0">
-                <a
-                  href="#apply"
+                <button
                   className="btn btn-warning fw-semibold px-4"
-                  onClick={() => setOpen(false)}
+                  onClick={() => handleScroll("apply")}
                 >
                   Apply Loan
-                </a>
+                </button>
               </li>
 
             </ul>

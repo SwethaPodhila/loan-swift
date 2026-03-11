@@ -30,13 +30,45 @@ function AdminDashboard() {
 
     }, [])
 
+    const downloadCSV = () => {
+        if (!users.length) return;
+
+        const headers = ["#", "Name", "Email", "Phone", "Income", "Loan Type", "Address", "EMI"];
+
+        const rows = users.map((user, index) => [
+            index + 1,
+            user.name,
+            user.email,
+            user.phone,
+            user.income,
+            user.loanType,
+            user.address,
+            user.emi
+        ]);
+
+        // Wrap every field in quotes to handle commas
+        const csvContent =
+            [headers, ...rows]
+                .map(row => row.map(field => `"${field}"`).join(","))
+                .join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "users_data.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
 
         <div style={{
             background: "linear-gradient(135deg,#0b1f3a,#132f57)",
             minHeight: "100vh"
         }}>
-       
+
             {/* NAVBAR */}
 
             <nav className="navbar px-4"
@@ -66,10 +98,18 @@ function AdminDashboard() {
 
 
             <div className="container mt-4 text-white">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <h3 className="mb-4 fw-bold">Admin Dashboard</h3>
 
-                <h3 className="mb-4 fw-bold">Admin Dashboard</h3>
-
-
+                    <div className="mb-3">
+                        <button
+                            className="btn btn-warning"
+                            onClick={downloadCSV}
+                        >
+                            Download Users as Excel
+                        </button>
+                    </div>
+                </div>
                 {/* STAT CARDS */}
 
                 <div className="row mb-4">
@@ -153,6 +193,7 @@ function AdminDashboard() {
                                     <th>Income</th>
                                     <th>Loan Type</th>
                                     <th>Address</th>
+                                    <th>EMI</th>
                                 </tr>
 
                             </thead>
@@ -168,6 +209,7 @@ function AdminDashboard() {
                                         <td>${user.income}</td>
                                         <td>{user.loanType}</td>
                                         <td>{user.address}</td>
+                                        <td>${user.emi}</td>
                                     </tr>
                                 ))}
 
