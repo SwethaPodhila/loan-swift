@@ -1,10 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Contact = () => {
-    return (
-        <section id="contact">
-            <style>{`
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!form.name || !form.email || !form.subject || !form.message) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/loans/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Message sent successfully! ✅");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        alert(data.error || "Something went wrong! ❌");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong! ❌");
+    }
+  };
+
+  return (
+    <section id="contact">
+      <style>{`
         #contact{
           padding:80px 10%;
           background:#f5f7fb;
@@ -34,8 +74,6 @@ const Contact = () => {
           align-items:stretch;
         }
 
-        /* LEFT SIDE */
-
         .contact-info{
           flex:1;
           background:white;
@@ -64,8 +102,6 @@ const Contact = () => {
           border-radius:50%;
           font-size:18px;
         }
-
-        /* RIGHT SIDE */
 
         .contact-form{
           flex:2;
@@ -111,8 +147,6 @@ const Contact = () => {
           background:#e0a800;
         }
 
-        /* MOBILE */
-
         @media(max-width:768px){
           .contact-container{
             flex-direction:column;
@@ -122,78 +156,95 @@ const Contact = () => {
             flex-direction:column;
           }
         }
-
       `}</style>
 
-            <div className="contact-header">
-                <h2>Contact <span>Us</span></h2>
-                <p>Have questions about loans? Our team is here to help.</p>
+      <div className="contact-header">
+        <h2>Contact <span>Us</span></h2>
+        <p>Have questions about loans? Our team is here to help.</p>
+      </div>
+
+      <div className="contact-container">
+
+        {/* LEFT SIDE */}
+        <div className="contact-info">
+          <div className="info-box">
+            <div className="icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>SR Nagar, Hyderabad, Telangana</p>
+            </div>
+          </div>
+
+          <div className="info-box">
+            <div className="icon">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+91 1800 123 4567</p>
+            </div>
+          </div>
+
+          <div className="info-box">
+            <div className="icon">✉</div>
+            <div>
+              <h4>Email</h4>
+              <p>info@loanswift.com</p>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <form className="contact-form" onSubmit={handleSubmit}>
+
+          <div className="form-row">
+            <div className="form-group">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
             </div>
 
-            <div className="contact-container">
-
-                {/* LEFT SIDE */}
-
-                <div className="contact-info">
-
-                    <div className="info-box">
-                        <div className="icon">📍</div>
-                        <div>
-                            <h4>Address</h4>
-                            <p>SR Nagar, Hyderabad, Telangana</p>
-                        </div>
-                    </div>
-
-                    <div className="info-box">
-                        <div className="icon">📞</div>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+91 1800 123 4567</p>
-                        </div>
-                    </div>
-
-                    <div className="info-box">
-                        <div className="icon">✉</div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>info@loanswift.com</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                {/* RIGHT SIDE */}
-
-                <div className="contact-form">
-
-                    <div className="form-row">
-
-                        <div className="form-group">
-                            <input type="text" placeholder="Your Name" />
-                        </div>
-
-                        <div className="form-group">
-                            <input type="email" placeholder="Your Email" />
-                        </div>
-
-                    </div>
-
-                    <div className="form-group" style={{ marginBottom: "20px" }}>
-                        <input type="text" placeholder="Subject" />
-                    </div>
-
-                    <div className="form-group" style={{ marginBottom: "20px" }}>
-                        <textarea placeholder="Your Message"></textarea>
-                    </div>
-
-                    <button>Send Message</button>
-
-                </div>
-
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
             </div>
+          </div>
 
-        </section>
-    );
+          <div className="form-group" style={{ marginBottom: "20px" }}>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              value={form.subject}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group" style={{ marginBottom: "20px" }}>
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              value={form.message}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  );
 };
 
 export default Contact;

@@ -28,7 +28,7 @@ function ApplyLoanSection() {
         if (!form.phone || form.phone.length !== 10) return alert("Enter valid phone");
 
         try {
-            const resOtp = await fetch("http://localhost:5000/loans/send-otp", {
+            const resOtp = await fetch("https://loan-swift-backend.onrender.com/loans/send-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone: form.phone })
