@@ -83,7 +83,7 @@ function ApplyLoanSection() {
             });
             const data = await res.json();
             if (data.success) {
-                alert("Application Submitted Successfully!");
+                alert("We received your application and our team will get back to you soon, Thank You!");
                 // reset form
                 setForm({
                     name: "",
