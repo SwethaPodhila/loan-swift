@@ -7,6 +7,7 @@ import ApplyLoanSection from "../components/ApplyLoanSection";
 import WhyChooseUsSection from "../components/WhyChooseUsSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import Contact from "../components/Contact";
+import Eligibility from "../components/Eligibility";
 import Footer from "../components/Footer";
 
 function Index() {
@@ -17,6 +18,7 @@ function Index() {
             <LoanTypesSection />
             <HowItWorksSection />
             <LoanCalculatorSection />
+            <Eligibility />
             <ApplyLoanSection />
             <WhyChooseUsSection />
             <TestimonialsSection />
