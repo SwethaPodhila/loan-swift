@@ -232,7 +232,6 @@ transform:translateY(-1px);
 
             <section className="eligibility-section py-5" id="eligibility">
 
-
                 <div className="container">
 
                     <h2 className="text-center section-title mb-5">
