@@ -11,7 +11,6 @@ function LoanCalculatorSection() {
     const [otp, setOtp] = useState("");
     const [otpSent, setOtpSent] = useState(false);
 
-
     const calculateEmi = () => {
         const r = rate / 12 / 100;
         const n = tenure;
@@ -32,7 +31,7 @@ function LoanCalculatorSection() {
 
         try {
 
-            const res = await fetch("http://localhost:5000/loans/check-number", {
+            const res = await fetch("https://loan-swift-backend.onrender.com/loans/check-number", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -68,7 +67,7 @@ function LoanCalculatorSection() {
 
         try {
 
-            const res = await fetch("http://localhost:5000/loans/calculateSendOtp", {
+            const res = await fetch("https://loan-swift-backend.onrender.com/loans/calculateSendOtp", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -101,7 +100,7 @@ function LoanCalculatorSection() {
 
         try {
 
-            const res = await fetch("http://localhost:5000/loans/verify-otp", {
+            const res = await fetch("https://loan-swift-backend.onrender.com/loans/verify-otp", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -244,7 +243,7 @@ function LoanCalculatorSection() {
                             type="text"
                             placeholder="Mobile Number"
                             value={phone}
-                            disabled
+                            onChange={(e) => setPhone(e.target.value)}
                         />
 
                         <button onClick={sendOtp}>
