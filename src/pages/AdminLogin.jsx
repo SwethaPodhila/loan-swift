@@ -32,7 +32,7 @@ function AdminLogin() {
 
         const data = await res.json();
 
-      //  alert(data.message);
+        //  alert(data.message);
 
         // ✅ login success
         if (res.ok) {
@@ -103,7 +103,9 @@ function AdminLogin() {
                             className="btn w-100"
                             style={{
                                 background: "#ffc107",
-                                fontWeight: "600"
+                                fontWeight: "600",
+                                marginTop: "10px",
+                                marginBottom: "10px"
                             }}
                         >
                             Login
@@ -111,9 +113,9 @@ function AdminLogin() {
 
                     </form>
 
-                    <p className="text-center mt-3">
+                    {/*  <p className="text-center mt-3">
                         Don't have account? <a href="/admin/signup">Signup</a>
-                    </p>
+                    </p> */}
 
                 </div>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { jwtDecode } from "jwt-decode";
 
 function AdminDashboard() {
 
@@ -14,6 +14,15 @@ function AdminDashboard() {
 
         navigate("/admin/login")
 
+    }
+
+    const token = localStorage.getItem("adminToken");
+
+    let role = null;
+
+    if (token) {
+        const decoded = jwtDecode(token);
+        role = decoded.role;
     }
 
     useEffect(() => {
@@ -101,14 +110,14 @@ function AdminDashboard() {
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <h3 className="mb-4 fw-bold">Admin Dashboard</h3>
 
-                    <div className="mb-3">
+                    {role === "super_admin" && (
                         <button
-                            className="btn btn-warning"
-                            onClick={downloadCSV}
+                            className="btn btn-warning me-2"
+                            onClick={() => navigate("/create-sub-admin")}
                         >
-                            Download Users as Excel
+                            Create Sub Admin
                         </button>
-                    </div>
+                    )}
                 </div>
                 {/* STAT CARDS */}
 
@@ -153,25 +162,29 @@ function AdminDashboard() {
                             <h3>25</h3>
                         </div>
                     </div>
-
                 </div>
 
-
                 {/* USERS TABLE */}
-
                 <div className="card shadow">
 
                     <div
-                        className="card-header"
+                        className="card-header d-flex justify-content-between align-items-center"
                         style={{
                             background: "#0b1f3a",
                             color: "#fff",
                             borderBottom: "2px solid #ffc107"
                         }}
                     >
-
                         <h5 className="mb-0">Registered Users</h5>
-
+                        <div className="mb-3">
+                            <button
+                                className="btn btn-warning"
+                                style={{ fontWeight: "600",marginTop:"4px", marginBottom:"-10px" }}
+                                onClick={downloadCSV}
+                            >
+                                Download Users as Excel
+                            </button>
+                        </div>
                     </div>
 
                     <div className="card-body">
@@ -236,17 +249,14 @@ function AdminDashboard() {
                     borderTop: "2px solid #ffc107"
                 }}
             >
-
                 <p style={{ margin: "0" }}>
                     © 2026 LoanSwift Admin Panel
                 </p>
-
             </footer>
-
         </div>
 
     )
 
 }
 
-export default AdminDashboard
+export default AdminDashboard     

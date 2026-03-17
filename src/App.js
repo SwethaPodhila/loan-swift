@@ -5,8 +5,9 @@ import NotFound from "./pages/NotFound";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pratice from "./pages/pratice";
 import AdminLogin from "./pages/AdminLogin";
-import AdminSignup from "./pages/AdminSignup";
+//import AdminSignup from "./pages/AdminSignup";
 import AdminDashboard from "./pages/AdminDashboard";
+import CreateSubAdmin from "./pages/CreateSubAdmin";
 
 const queryClient = new QueryClient();
 
@@ -17,9 +18,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pratice" element={<Pratice />} />
-          <Route  oute path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/signup" element={<AdminSignup />} />
+          <Route oute path="/admin/login" element={<AdminLogin />} />
+          {/* <Route path="/admin/signup" element={<AdminSignup />} /> */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/create-sub-admin" element={<CreateSubAdmin />} />
 
           {/* Custom routes here */}
 
