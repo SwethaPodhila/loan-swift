@@ -8,6 +8,7 @@ import AdminLogin from "./pages/AdminLogin";
 //import AdminSignup from "./pages/AdminSignup";
 import AdminDashboard from "./pages/AdminDashboard";
 import CreateSubAdmin from "./pages/CreateSubAdmin";
+import PrivacyPolicy from "./pages/Privacy";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
           {/* <Route path="/admin/signup" element={<AdminSignup />} /> */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/create-sub-admin" element={<CreateSubAdmin />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
           {/* Custom routes here */}
 
